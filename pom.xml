@@ -150,6 +150,54 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.jooq</groupId>
+				<artifactId>jooq-codegen-maven</artifactId>
+				<executions>
+					<execution>
+						<id>generate-jooq</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<jdbc>
+								<driver>org.postgresql.Driver</driver>
+								<url>${env.DB_URL}</url>
+								<user>${env.DB_USERNAME}</user>
+								<password>${env.DB_PASSWORD}</password>
+							</jdbc>
+							<generator>
+								<database>
+									<name>org.jooq.meta.postgres.PostgresDatabase</name>
+									<inputSchema>public</inputSchema>
+									<includes>.*</includes>
+									<excludes>flyway_schema_history</excludes>
+								</database>
+								<generate>
+									<routines>false</routines>
+								</generate>
+								<target>
+									<packageName>
+										io.github.itztalha.whatsplit.jooq
+									</packageName>
+									<directory>
+										target/generated-sources/jooq
+									</directory>
+								</target>
+							</generator>
+						</configuration>
+					</execution>
+				</executions>
+
+				<dependencies>
+					<dependency>
+						<groupId>org.postgresql</groupId>
+						<artifactId>postgresql</artifactId>
+						<version>42.7.11</version>
+					</dependency>
+				</dependencies>
+			</plugin>
 		</plugins>
 	</build>
 
