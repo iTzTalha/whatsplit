@@ -1,13 +1,15 @@
 package io.github.itztalha.whatsplit.model.settlement;
 
+import io.github.itztalha.whatsplit.model.common.WaId;
+
 import java.math.BigDecimal;
 import java.util.UUID;
 
 public record Settlement(
         UUID id,
         UUID expenseGroupId,
-        String fromWaId,
-        String toWaId,
+        WaId fromWaId,
+        WaId toWaId,
         BigDecimal amount,
         String currencyCode
 ) {
