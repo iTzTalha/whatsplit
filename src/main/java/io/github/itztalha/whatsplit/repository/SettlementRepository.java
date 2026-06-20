@@ -1,7 +1,13 @@
 package io.github.itztalha.whatsplit.repository;
 
-import org.springframework.stereotype.Repository;
+import io.github.itztalha.whatsplit.model.settlement.Settlement;
 
-@Repository
-public class SettlementRepository {
+import java.util.List;
+import java.util.UUID;
+
+public interface SettlementRepository {
+
+    Settlement save(Settlement settlement);
+
+    List<Settlement> findByGroupId(UUID expenseGroupId);
 }
