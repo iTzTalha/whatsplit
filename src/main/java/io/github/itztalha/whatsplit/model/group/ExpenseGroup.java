@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public record ExpenseGroup(
         UUID id,
-        WaChatId whatsappChatId,
+        WaChatId chatId,
         String name,
         String description,
         WaId createdByWaId
