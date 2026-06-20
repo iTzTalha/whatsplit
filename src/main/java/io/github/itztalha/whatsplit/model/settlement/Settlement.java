@@ -1,5 +1,6 @@
 package io.github.itztalha.whatsplit.model.settlement;
 
+import io.github.itztalha.whatsplit.model.common.CurrencyCode;
 import io.github.itztalha.whatsplit.model.common.WaId;
 
 import java.math.BigDecimal;
@@ -11,6 +12,6 @@ public record Settlement(
         WaId fromWaId,
         WaId toWaId,
         BigDecimal amount,
-        String currencyCode
+        CurrencyCode currencyCode
 ) {
 }
