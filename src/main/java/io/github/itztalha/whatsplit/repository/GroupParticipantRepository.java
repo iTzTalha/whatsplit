@@ -11,11 +11,13 @@ public interface GroupParticipantRepository {
 
     GroupParticipant save(GroupParticipant participant);
 
+    Optional<GroupParticipant> findById(UUID participantId);
+
     Optional<GroupParticipant> findByGroupIdAndWaId(UUID expenseGroupId, WaId waId);
 
     List<GroupParticipant> findByGroupId(UUID expenseGroupId);
 
     List<GroupParticipant> findActiveByGroupId(UUID expenseGroupId);
 
-    boolean isActiveParticipant(UUID expenseGroupId, WaId waId);
+    void updateActiveStatus(UUID participantId, boolean active);
 }
