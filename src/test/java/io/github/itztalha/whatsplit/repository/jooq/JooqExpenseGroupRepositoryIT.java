@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Testcontainers
-class JooqExpenseGroupRepositoryIT {
+class JooqExpenseGroupRepositoryIT extends AbstractRepositoryIT {
 
     @Autowired
     private ExpenseGroupRepository repository;
