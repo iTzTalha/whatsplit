@@ -1,5 +1,6 @@
 package io.github.itztalha.whatsplit.repository.jooq;
 
+import io.github.itztalha.whatsplit.jooq.tables.records.ExpenseGroupsRecord;
 import io.github.itztalha.whatsplit.model.common.WaChatId;
 import io.github.itztalha.whatsplit.model.group.ExpenseGroup;
 import io.github.itztalha.whatsplit.repository.ExpenseGroupRepository;
@@ -25,31 +26,16 @@ public class JooqExpenseGroupRepository implements ExpenseGroupRepository {
     public ExpenseGroup save(
             ExpenseGroup expenseGroup
     ) {
-        return dsl.insertInto(EXPENSE_GROUPS)
-                .set(
-                        EXPENSE_GROUPS.WHATSAPP_CHAT_ID,
-                        expenseGroup.chatId().value()
-                )
-                .set(
-                        EXPENSE_GROUPS.NAME,
-                        expenseGroup.name()
-                )
-                .set(
-                        EXPENSE_GROUPS.DESCRIPTION,
-                        expenseGroup.description()
-                )
-                .set(
-                        EXPENSE_GROUPS.CREATED_BY_WA_ID,
-                        expenseGroup.createdByWaId().value()
-                )
-                .returning()
-                .fetchOptional()
-                .map(mapper::toModel)
-                .orElseThrow(() ->
-                        new IllegalStateException(
-                                "Failed to persist expense group"
-                        )
-                );
+        ExpenseGroupsRecord record = dsl.newRecord(EXPENSE_GROUPS);
+
+        record.setWhatsappChatId(expenseGroup.chatId().value());
+        record.setName(expenseGroup.name());
+        record.setDescription(expenseGroup.description());
+        record.setCreatedByWaId(expenseGroup.createdByWaId().value());
+
+        record.store();
+
+        return mapper.toModel(record);
     }
 
     @Override
