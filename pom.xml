@@ -161,18 +161,21 @@
 							<goal>generate</goal>
 						</goals>
 						<configuration>
-							<jdbc>
-								<driver>org.postgresql.Driver</driver>
-								<url>${env.DB_URL}</url>
-								<user>${env.DB_USERNAME}</user>
-								<password>${env.DB_PASSWORD}</password>
-							</jdbc>
 							<generator>
 								<database>
-									<name>org.jooq.meta.postgres.PostgresDatabase</name>
-									<inputSchema>public</inputSchema>
+									<name>org.jooq.meta.extensions.ddl.DDLDatabase</name>
 									<includes>.*</includes>
 									<excludes>flyway_schema_history</excludes>
+									<properties>
+										<property>
+											<key>defaultNameCase</key>
+											<value>lower</value>
+										</property>
+										<property>
+											<key>scripts</key>
+											<value>src/main/jooq/schema.sql</value>
+										</property>
+									</properties>
 								</database>
 								<generate>
 									<routines>false</routines>
@@ -192,11 +195,26 @@
 
 				<dependencies>
 					<dependency>
+						<groupId>org.jooq</groupId>
+						<artifactId>jooq-meta-extensions</artifactId>
+						<version>3.21.5</version>
+					</dependency>
+					<dependency>
 						<groupId>org.postgresql</groupId>
 						<artifactId>postgresql</artifactId>
 						<version>42.7.11</version>
 					</dependency>
 				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<includes>
+						<include>**/*Test.java</include>
+						<include>**/*IT.java</include>
+					</includes>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
